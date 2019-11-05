@@ -3,19 +3,14 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-//#include <GL/glut.h>
-
-
 
 
 #include "particlesystem.h"
 
 
-
 int main()
 {
 
-    //GLFWwindow* window;
 
     // Initialise GLFW
     glewExperimental = true; // Needed for core profile
@@ -33,11 +28,10 @@ int main()
 
     // Open a window and create its OpenGL context
 
-    GLFWwindow* window = glfwCreateWindow(600, 600, "Partices System", nullptr,nullptr);
+    GLFWwindow* window = glfwCreateWindow(600, 600, "Particles System", nullptr,nullptr);
 
     if( window == nullptr ){
-        fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
-        getchar();
+        std::cerr<<"Failed to open GLFW window"<<std::endl;
         glfwTerminate();
         return -1;
     }
@@ -45,9 +39,9 @@ int main()
     glfwMakeContextCurrent(window);
 
     // Initialize GLEW
-    if (glewInit() != GLEW_OK) {
-        fprintf(stderr, "Failed to initialize GLEW\n");
-        getchar();
+    if (glewInit() != GLEW_OK)
+    {
+        std::cerr<<"Failed to initialize GLEW"<<std::endl;
         glfwTerminate();
         return -1;
     }
@@ -57,10 +51,6 @@ int main()
     // Dark blue background
     glClearColor(0.2f, 0.2f, 0.5f, 0.0f);
 
-    GLuint VertexArrayID;
-    glGenVertexArrays(1, &VertexArrayID);
-    glBindVertexArray(VertexArrayID);
-
 
     std::vector<float> points = {
        0.0f,  0.5f,  0.0f,
@@ -68,9 +58,9 @@ int main()
       -0.5f, -0.5f,  0.0f
     };
 
-    GLuint vertexbuffer;
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), &points[0], GL_STATIC_DRAW);
 
 
@@ -78,7 +68,7 @@ int main()
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
     glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     //shaders
@@ -93,7 +83,7 @@ int main()
             "#version 400\n"
             "out vec4 frag_colour;"
             "void main() {"
-            "  frag_colour = vec4(0.5, 0.0, 0.5, 1.0);"
+            "  frag_colour = vec4(0.5, 0.0, 0.0, 1.0);"
             "}";
 
     GLuint vs = glCreateShader(GL_VERTEX_SHADER);
@@ -107,24 +97,24 @@ int main()
     glAttachShader(shader_programme, fs);
     glAttachShader(shader_programme, vs);
     glLinkProgram(shader_programme);
+    glUseProgram(shader_programme);
 
-    do{
+     while(glfwWindowShouldClose(window) == 0 )
+     {
         // Clear the screen.
-        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+        glClear(GL_COLOR_BUFFER_BIT);
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(shader_programme);
-        glBindVertexArray(vao);
         // draw points 0-3 from the currently bound VAO with current in-use shader
         glDrawArrays(GL_TRIANGLES, 0, 3);
+
         // update other events like input handling
         glfwPollEvents();
         // put the stuff we've been drawing onto the display
         glfwSwapBuffers(window);
 
 
-    } // Check if the ESC key was pressed or the window was closed
-    while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&  glfwWindowShouldClose(window) == 0 );
+    }
+
 
     // Close OpenGL window and terminate GLFW
     glfwTerminate();
