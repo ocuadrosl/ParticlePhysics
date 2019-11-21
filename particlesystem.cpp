@@ -32,8 +32,7 @@ void ParticleSystem::initSystem()
 
     }
 
-} at velocity add
-
+}
 void ParticleSystem::setRandonInitPosition()
 {
 
@@ -82,9 +81,9 @@ void ParticleSystem::startSystem()
 
             const float mass = p->getMass();
 
-            velocity[0] = (gravity[0]/mass)*t + velocity[0];
-            velocity[1] = (gravity[1]/mass)*t + velocity[1];
-            velocity[2] = (gravity[2]/mass)*t + velocity[2];
+            velocity[0] = (force[0]/mass)*t + velocity[0];
+            velocity[1] = (force[1]/mass)*t + velocity[1];
+            velocity[2] = (force[2]/mass)*t + velocity[2];
 
 
             //Check sphere collition
