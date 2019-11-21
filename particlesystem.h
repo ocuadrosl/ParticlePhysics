@@ -30,6 +30,7 @@ public:
     void setRandonInitPosition();
     void startSystem();
     void setSphereRadius(float radius);
+    void setFramesOutputDir(const std::string& dir);
 
 private:
 
@@ -44,7 +45,7 @@ private:
     void checkSphereCollition(vectorF & position);
 
     //CHANGE IT
-    std::string directory = "/home/oscar/tmp/frames/";
+    std::string directory;
     void writeFrame(unsigned index);
 
 

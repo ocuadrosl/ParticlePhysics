@@ -38,18 +38,16 @@ void ParticleSystem::setRandonInitPosition()
 
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 
-    for(auto it=particles.begin();it != particles.end();++it)
+    for(auto it=particles.begin(); it != particles.end(); ++it)
     {
 
-        auto &p = *it;
-
         //alias definitions
-        vectorF &position =  p->getPosition();
+        vectorF &position =  (*it)->getPosition();
 
         position[0] = (std::rand() % 1001 + (-500))/100.f ;
-        position[1] = std::rand() % 20;
+        position[1] =  std::rand() % 20;
         position[2] = (std::rand() % 1001 + (-500))/100.f;
-        //std::cout<<position[0]<<std::endl;
+
 
 
      }
@@ -67,10 +65,10 @@ void ParticleSystem::startSystem()
         //for each particle
         for(auto pt = particles.begin(); pt != particles.end(); ++pt)
         {
-            //alias to the current Particle object
+            //alias to current particle
             auto &p = *pt;
 
-            //alias definitions
+            //more alias
             vectorF &position =  p->getPosition();
             vectorF &velocity =  p->getVelocity();
 
@@ -105,7 +103,7 @@ void ParticleSystem::startSystem()
     }
 
 
-    std::cout<<"End"<<std::endl;
+    std::cout<<"Writing frames [OK]"<<std::endl;
 }
 
 
@@ -113,7 +111,7 @@ void ParticleSystem::checkSphereCollition(vectorF & position)
 {
 
     float sLength = util::squaredLength(position);
-   // std::cout<<sLength<<std::endl;
+
     if( sLength < sphereRadius*sphereRadius)
     {
 
@@ -134,12 +132,22 @@ void ParticleSystem::setSphereRadius(float radius)
     sphereRadius = radius;
 }
 
+/*
+Writing an ASCII vtk file
+*/
 void ParticleSystem::writeFrame(unsigned index)
 {
 
-    std::string fileName  = directory+"frame_"+std::to_string(index)+".vtk";
+    std::string fileName  = directory+"/frame_"+std::to_string(index)+".vtk";
 
     std::ofstream frame (fileName);
+
+    if (!frame.is_open())
+    {
+        std::cerr<<"Error opening "<<fileName <<std::endl;
+        return;
+    }
+
     //headers
     frame << "# vtk DataFile Version 2.0"<<std::endl;
     frame<< "Particle system"<<std::endl;
@@ -149,8 +157,8 @@ void ParticleSystem::writeFrame(unsigned index)
 
     for(auto it = particles.begin(); it != particles.end(); ++it)
     {
-        const auto& p = *it;
-        const auto& position  = p->getPosition();
+
+        const auto& position  = (*it)->getPosition();
 
         frame <<position[0]<<" "<<position[1]<<" "<<position[2]<<std::endl;
     }
@@ -184,10 +192,18 @@ void ParticleSystem::writeFrame(unsigned index)
         frame<< "0.0 1.0 0.0 1.0" <<std::endl;
     }
 
+
+
 }
 
 
 
+void ParticleSystem::setFramesOutputDir(const std::string& dir)
+{
+
+    this->directory = dir;
+
+}
 
 
 

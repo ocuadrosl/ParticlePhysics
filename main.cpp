@@ -17,9 +17,10 @@ int main()
 
 
     std::unique_ptr<ParticleSystem> pSystem(new ParticleSystem());
-    pSystem->setNumberOfParticles(1000);
+    pSystem->setNumberOfParticles(2000);
     pSystem->initSystem();
     pSystem->setRandonInitPosition();
+    pSystem->setFramesOutputDir("/home/oscar/tmp/frames");
     pSystem->startSystem();
 
 
