@@ -2,17 +2,18 @@
 
 Particle::Particle()
 {
-    position.resize(3,0.f);
-    velocity.resize(3,0.f);
-    acceleration.resize(3,0.f);
+    position = vectorF(3, 0.f);
+    velocity = vectorF(3, 0.f);
+    force = vectorF(3, 0.f);
+
 }
 
 void Particle::reset()
 {
-    position.resize(3,0.f);
-    velocity.resize(3,0.f);
-    acceleration.resize(3,0.f);
-    mass = 0.f;
+    position = vectorF(3, 0.f);
+    velocity = vectorF(3, 0.f);
+    force    = vectorF(3, 0.f);
+    mass = 1.f;
     lifetime = 0.f;
 }
 
@@ -36,12 +37,61 @@ void Particle::setVelocity(const vectorF& velocity)
     this->velocity = velocity;
 }
 
-void Particle::setAcceleration(const vectorF& acceleration)
+void Particle::setForce(const vectorF& force)
 {
-    this->acceleration = acceleration;
+    this->force = force;
 }
 
 float Particle::getLifetime() const
 {
     return lifetime;
 }
+
+
+float Particle::getMass() const
+{
+    return this->mass;
+}
+
+const Particle::vectorF& Particle::getPosition() const
+{
+    return this->position;
+}
+
+const Particle::vectorF& Particle::getVelocity() const
+{
+    return this->velocity;
+}
+
+const Particle::vectorF& Particle::getForce() const
+{
+    return this->force;
+}
+
+Particle::vectorF& Particle::getPosition()
+{
+    return this->position;
+}
+
+Particle::vectorF& Particle::getVelocity()
+{
+    return this->velocity;
+}
+
+Particle::vectorF& Particle::getForce()
+{
+    return this->force;
+}
+
+
+void Particle::print()
+{
+
+    std::cout<<"Position: "<<position[0]<<", "<<position[1]<<", "<<position[2]<<std::endl;
+
+
+
+}
+
+
+

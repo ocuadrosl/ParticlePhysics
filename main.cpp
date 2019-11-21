@@ -8,9 +8,27 @@
 #include "particlesystem.h"
 
 
+
+
+
+
 int main()
 {
 
+
+    std::unique_ptr<ParticleSystem> pSystem(new ParticleSystem());
+    pSystem->setNumberOfParticles(1000);
+    pSystem->initSystem();
+    pSystem->setRandonInitPosition();
+    pSystem->startSystem();
+
+
+
+
+
+
+
+    /*
 
     // Initialise GLFW
     glewExperimental = true; // Needed for core profile
@@ -118,6 +136,6 @@ int main()
 
     // Close OpenGL window and terminate GLFW
     glfwTerminate();
-
+*/
     return 0;
 }

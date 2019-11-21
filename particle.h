@@ -1,7 +1,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-
+#include <iostream>
 #include <vector>
 
 class Particle
@@ -10,6 +10,7 @@ class Particle
     using vectorF = std::vector<float>;
     const float INF = -1.f; //infinite
 
+
 public:
     Particle();
     void reset();
@@ -17,17 +18,30 @@ public:
     void setMass(float mass);
     void setPosition(const vectorF& position);
     void setVelocity(const vectorF& velocity);
-    void setAcceleration(const vectorF& acceleration);
+    void setForce(const vectorF& force);
+
+    float getMass() const;
+    const vectorF& getPosition() const ;
+    const vectorF& getVelocity() const;
+    const vectorF& getForce() const;
+
+    vectorF& getPosition();
+    vectorF& getVelocity();
+    vectorF& getForce();
+
+
 
     float getLifetime() const;
 
-private:
-      vectorF position;
-      vectorF velocity;
-      vectorF acceleration;
+    void print();
 
-      float mass     = 0.f;
-      float lifetime = INF; //milliseconds,
+private:
+    vectorF position;
+    vectorF velocity;
+    vectorF force;
+
+    float mass     = 1.f;
+    float lifetime = INF; //milliseconds,
 };
 
 #endif // PARTICLE_H
