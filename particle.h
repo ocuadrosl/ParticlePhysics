@@ -25,9 +25,18 @@ public:
     const vectorF& getVelocity() const;
     const vectorF& getForce() const;
 
+    //provide a fast way to modify member vectors
     vectorF& getPosition();
     vectorF& getVelocity();
     vectorF& getForce();
+
+    //Modify member vectors elements, it could be slow
+    void atVelocity(unsigned index, float value);
+    void atPosition(unsigned index, float value);
+
+    float atVelocity(unsigned index) const;
+    float atPosition(unsigned index) const;
+
 
 
 

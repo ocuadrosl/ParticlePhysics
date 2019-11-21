@@ -83,14 +83,33 @@ Particle::vectorF& Particle::getForce()
     return this->force;
 }
 
+void Particle::atPosition(unsigned int index, float value)
+{
+    position[index] = value;
+
+}
+
+void Particle::atVelocity(unsigned int index, float value)
+{
+    velocity[index] = value;
+
+}
+
+float Particle::atPosition(unsigned index) const
+{
+    return position[index];
+}
+
+float Particle::atVelocity(unsigned index) const
+{
+    return position[index];
+}
+
 
 void Particle::print()
 {
 
     std::cout<<"Position: "<<position[0]<<", "<<position[1]<<", "<<position[2]<<std::endl;
-
-
-
 }
 
 

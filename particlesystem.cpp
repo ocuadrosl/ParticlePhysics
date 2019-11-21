@@ -32,7 +32,7 @@ void ParticleSystem::initSystem()
 
     }
 
-}
+} at velocity add
 
 void ParticleSystem::setRandonInitPosition()
 {
@@ -75,10 +75,10 @@ void ParticleSystem::startSystem()
             vectorF &position =  p->getPosition();
             vectorF &velocity =  p->getVelocity();
 
+            //Euler's method
             position[0] = velocity[0]*t + position[0];
             position[1] = velocity[1]*t + position[1];
             position[2] = velocity[2]*t + position[2];
-
 
             const float mass = p->getMass();
 
@@ -87,9 +87,10 @@ void ParticleSystem::startSystem()
             velocity[2] = (gravity[2]/mass)*t + velocity[2];
 
 
-
+            //Check sphere collition
             checkSphereCollition(position);
 
+            //Check floor collition
             if(position[1]<floorPosition)
             {
                 position[1] = floorPosition;
@@ -176,8 +177,9 @@ void ParticleSystem::writeFrame(unsigned index)
     {
         frame<< "0.0" <<std::endl;
     }
-    frame<<"LOOKUP_TABLE ParticleColors "<< nParticles<< std::endl;
 
+    //Green color
+    frame<<"LOOKUP_TABLE ParticleColors "<< nParticles<< std::endl;
     for(unsigned i=0;i<nParticles;++i)
     {
         frame<< "0.0 1.0 0.0 1.0" <<std::endl;
