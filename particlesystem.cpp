@@ -25,7 +25,7 @@ void ParticleSystem::initSystem()
 
     for(auto it=particles.begin();it != particles.end();++it)
     {
-        std::unique_ptr<Particle> particle(new Particle);
+        std::unique_ptr<Particle> particle = std::make_unique<Particle>();
         (*it) = std::move(particle);
         (*it)->setMass(0.1f);
 
@@ -149,8 +149,8 @@ void ParticleSystem::writeFrame(unsigned index)
     }
 
     //headers
-    frame << "# vtk DataFile Version 2.0"<<std::endl;
-    frame<< "Particle system"<<std::endl;
+    frame <<"# vtk DataFile Version 2.0"<<std::endl;
+    frame<<"Particle system"<<std::endl;
     frame<<"ASCII"<<std::endl;
     frame<<"DATASET UNSTRUCTURED_GRID"<<std::endl;
     frame<<"POINTS "<< nParticles<< " float"<< std::endl;

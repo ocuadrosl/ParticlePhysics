@@ -15,21 +15,16 @@
 int main()
 {
 
-
+    /*
     std::unique_ptr<ParticleSystem> pSystem(new ParticleSystem());
     pSystem->setNumberOfParticles(2000);
     pSystem->initSystem();
     pSystem->setRandonInitPosition();
     pSystem->setFramesOutputDir("/home/oscar/tmp/frames");
     pSystem->startSystem();
+*/
 
 
-
-
-
-
-
-    /*
 
     // Initialise GLFW
     glewExperimental = true; // Needed for core profile
@@ -72,9 +67,9 @@ int main()
 
 
     std::vector<float> points = {
-       0.0f,  0.5f,  0.0f,
-       0.5f, -0.5f,  0.0f,
-      -0.5f, -0.5f,  0.0f
+        0.0f,  0.5f,  0.0f,
+        0.5f, -0.5f,  0.0f,
+        -0.5f, -0.5f,  0.0f
     };
 
     GLuint vbo;
@@ -118,8 +113,8 @@ int main()
     glLinkProgram(shader_programme);
     glUseProgram(shader_programme);
 
-     while(glfwWindowShouldClose(window) == 0 )
-     {
+    while(glfwWindowShouldClose(window) == 0 )
+    {
         // Clear the screen.
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -137,6 +132,6 @@ int main()
 
     // Close OpenGL window and terminate GLFW
     glfwTerminate();
-*/
+
     return 0;
 }

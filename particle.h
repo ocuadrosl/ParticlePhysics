@@ -21,7 +21,7 @@ public:
     void setForce(const vectorF& force);
 
     float getMass() const;
-    const vectorF& getPosition() const ;
+    const vectorF& getPosition() const;
     const vectorF& getVelocity() const;
     const vectorF& getForce() const;
 
