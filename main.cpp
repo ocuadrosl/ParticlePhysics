@@ -1,30 +1,13 @@
 #include <iostream>
 #include <memory>
+#include <vector>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 
-#include "particlesystem.h"
-
-
-
-
-
-
 int main()
 {
-
-    /*
-    std::unique_ptr<ParticleSystem> pSystem(new ParticleSystem());
-    pSystem->setNumberOfParticles(2000);
-    pSystem->initSystem();
-    pSystem->setRandonInitPosition();
-    pSystem->setFramesOutputDir("/home/oscar/tmp/frames");
-    pSystem->startSystem();
-*/
-
-
 
     // Initialise GLFW
     glewExperimental = true; // Needed for core profile
@@ -73,17 +56,17 @@ int main()
     };
 
     GLuint vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), &points[0], GL_STATIC_DRAW);
+    glGenBuffers(1, &vbo); //generate buffer object names, 1 = number of buffer object names to be generated.
+    glBindBuffer(GL_ARRAY_BUFFER, vbo); //bind a named buffer object
+    glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), &points[0], GL_STATIC_DRAW); //creates and initializes a buffer object's data store
 
 
     GLuint vao = 0;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glGenVertexArrays(1, &vao); // generate vertex array object names
+    glBindVertexArray(vao); //bind a vertex array object
+    glEnableVertexAttribArray(0); //Enable or disable a generic vertex attribute array
+    glBindBuffer(GL_ARRAY_BUFFER, vbo); // bind a named buffer object
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr); //define an array of generic vertex attribute data
 
     //shaders
     const char* vertex_shader =
@@ -100,18 +83,19 @@ int main()
             "  frag_colour = vec4(0.5, 0.0, 0.0, 1.0);"
             "}";
 
-    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vs, 1, &vertex_shader, nullptr);
-    glCompileShader(vs);
-    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fs, 1, &fragment_shader, nullptr);
+    GLuint vs = glCreateShader(GL_VERTEX_SHADER); //GL_VERTEX_SHADER is a shader that is intended to run on the programmable vertex processor.
+    glShaderSource(vs, 1, &vertex_shader, nullptr); //Replaces the source code in a shader object
+    glCompileShader(vs); //Compiles a shader object
+
+    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER); //GL_FRAGMENT_SHADER is a shader that is intended to run on the programmable fragment processor.
+    glShaderSource(fs, 1, &fragment_shader, nullptr); // Replaces the source code in a shader object
     glCompileShader(fs);
 
-    GLuint shader_programme = glCreateProgram();
-    glAttachShader(shader_programme, fs);
+    GLuint shader_programme = glCreateProgram();//Creates a program object, A program object is an object to which shader objects can be attached.
+    glAttachShader(shader_programme, fs); // Attaches a shader object to a program object
     glAttachShader(shader_programme, vs);
     glLinkProgram(shader_programme);
-    glUseProgram(shader_programme);
+    glUseProgram(shader_programme); //Installs a program object as part of current rendering state
 
     while(glfwWindowShouldClose(window) == 0 )
     {
