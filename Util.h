@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <cmath>
+#include <iostream>
+#include <fstream>
 
 namespace util
 {
@@ -38,6 +40,22 @@ inline void normalize(const std::vector<float>& input, std::vector<float>& outpu
 
 
 }
+
+
+
+
+inline void  VTKFileToVertexAttributes(const std::string& plyFileName, std::vector<float>& vertexAttributes)
+{
+
+
+
+
+
+}
+
+
+
+
 
 }
 
