@@ -135,7 +135,8 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,  6 * sizeof(float), nullptr); //define an array of generic vertex attribute data
     glEnableVertexAttribArray(1);
     //define an array of generic vertex attribute data
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  6 * sizeof(float), reinterpret_cast<const void *>(3*sizeof(float)) );
+    //reinterpret_cast<const void *>(3*sizeof(float)) = offset to three array position to read the normals
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  6 * sizeof(float), reinterpret_cast<const void *>(3*sizeof(float)));
 
 
     //A pyramid, same process as the box above
