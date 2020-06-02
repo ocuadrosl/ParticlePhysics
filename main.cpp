@@ -15,7 +15,10 @@ int main()
 
     auto particleSystem = std::make_unique<ParticleSystem>();
 
+    particleSystem->SetNumberOfParticles(100);
     particleSystem->InitSystem();
+
+    particleSystem->SetRandonInitPosition();
     particleSystem->SetFramesOutputDir("/home/oscar/Desktop/frames");
     particleSystem->StartSystem();
 
