@@ -6,18 +6,18 @@ ParticleSystem::ParticleSystem()
 }
 
 
-void ParticleSystem::setNumberOfParticles(unsigned number)
+void ParticleSystem::SetNumberOfParticles(unsigned number)
 {
     this->nParticles = number;
 }
 
-void ParticleSystem::updateSystem()
+void ParticleSystem::UpdateSystem()
 {
     //particles.resize(nParticles);
 }
 
 
-void ParticleSystem::initSystem()
+void ParticleSystem::InitSystem()
 {
 
 
@@ -33,7 +33,7 @@ void ParticleSystem::initSystem()
     }
 
 }
-void ParticleSystem::setRandonInitPosition()
+void ParticleSystem::SetRandonInitPosition()
 {
 
     std::srand(static_cast<unsigned>(std::time(nullptr)));
@@ -56,7 +56,7 @@ void ParticleSystem::setRandonInitPosition()
 
 
 
-void ParticleSystem::startSystem()
+void ParticleSystem::StartSystem()
 {
     //time step
     unsigned frameNumber = 1;
@@ -85,7 +85,7 @@ void ParticleSystem::startSystem()
 
 
             //Check sphere collition
-            checkSphereCollition(position);
+            CheckSphereCollition(position);
 
             //Check floor collition
             if(position[1]<floorPosition)
@@ -107,7 +107,7 @@ void ParticleSystem::startSystem()
 }
 
 
-void ParticleSystem::checkSphereCollition(vectorF & position)
+void ParticleSystem::CheckSphereCollition(vectorF & position)
 {
 
     float sLength = util::squaredLength(position);
@@ -127,7 +127,7 @@ void ParticleSystem::checkSphereCollition(vectorF & position)
 }
 
 
-void ParticleSystem::setSphereRadius(float radius)
+void ParticleSystem::SetSphereRadius(float radius)
 {
     sphereRadius = radius;
 }
@@ -197,8 +197,7 @@ void ParticleSystem::writeFrame(unsigned index)
 }
 
 
-
-void ParticleSystem::setFramesOutputDir(const std::string& dir)
+void ParticleSystem::SetFramesOutputDir(const std::string& dir)
 {
 
     this->directory = dir;

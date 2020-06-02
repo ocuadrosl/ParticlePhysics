@@ -24,13 +24,13 @@ class ParticleSystem
 
 public:
     ParticleSystem();
-    void setNumberOfParticles(unsigned number);
-    void updateSystem();
-    void initSystem();
-    void setRandonInitPosition();
-    void startSystem();
-    void setSphereRadius(float radius);
-    void setFramesOutputDir(const std::string& dir);
+    void SetNumberOfParticles(unsigned number);
+    void UpdateSystem();
+    void InitSystem();
+    void SetRandonInitPosition();
+    void StartSystem();
+    void SetSphereRadius(float radius);
+    void SetFramesOutputDir(const std::string& dir);
 
 private:
 
@@ -42,7 +42,7 @@ private:
     const float floorPosition = -15.f;
     float sphereRadius = 5.0f;
 
-    void checkSphereCollition(vectorF & position);
+    void CheckSphereCollition(vectorF & position);
 
     //CHANGE IT
     std::string directory;

@@ -38,8 +38,6 @@ public:
     float atPosition(unsigned index) const;
 
 
-
-
     float getLifetime() const;
 
     void print();
