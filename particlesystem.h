@@ -15,11 +15,11 @@ class ParticleSystem
 {
 
     //vector of Particle pointers
-    using particlesV = std::vector<std::unique_ptr<Particle>>;
+    using particlesV = std::vector<Particle>;
     using vectorF = std::vector<float>;
 
-    //wind and gravity
-    const vectorF force = {-0.2f, -0.98f, 0.f};
+    //gravity
+    const vectorF force = {-0.0f, -0.98f, 0.f};
 
 
 public:
@@ -37,7 +37,7 @@ private:
     particlesV particles;
 
     unsigned nParticles = 0;
-    float    simulationTime = 0.025f; //time
+    float    simulationTime = 0.0009f; //time
 
     const float floorPosition = -15.f;
     float sphereRadius = 5.0f;

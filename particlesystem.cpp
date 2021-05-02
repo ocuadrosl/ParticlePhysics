@@ -23,13 +23,11 @@ void ParticleSystem::InitSystem()
 
     particles = particlesV(nParticles);
 
+
     for(auto it=particles.begin();it != particles.end();++it)
     {
-        std::unique_ptr<Particle> particle = std::make_unique<Particle>();
-        (*it) = std::move(particle);
-        (*it)->setMass(0.1f);
 
-
+        (*it).setMass(0.1f);
     }
 
 }
@@ -42,7 +40,7 @@ void ParticleSystem::SetRandonInitPosition()
     {
 
         //alias definitions
-        vectorF &position =  (*it)->getPosition();
+        vectorF &position =  (*it).getPosition();
 
         position[0] = (std::rand() % 1001 + (-500))/100.f ;
         position[1] =  std::rand() % 20;
@@ -50,7 +48,7 @@ void ParticleSystem::SetRandonInitPosition()
 
 
 
-     }
+    }
 
 }
 
@@ -60,7 +58,7 @@ void ParticleSystem::StartSystem()
 {
     //time step
     unsigned frameNumber = 1;
-    for(float t = 0.f; t<=simulationTime; t+=0.0001f)
+    for(int  i = 0; i<=100; ++i)
     {
         //for each particle
         for(auto pt = particles.begin(); pt != particles.end(); ++pt)
@@ -69,20 +67,21 @@ void ParticleSystem::StartSystem()
             auto &p = *pt;
 
             //more alias
-            vectorF &position =  p->getPosition();
-            vectorF &velocity =  p->getVelocity();
+            vectorF &position =  p.getPosition();
+            vectorF &velocity =  p.getVelocity();
+
+
+
+            const float mass = p.getMass();
+
+            velocity[0] = velocity[0] + (force[0]/mass);
+            velocity[1] = velocity[1] + (force[1]/mass);
+            velocity[2] = velocity[2] + (force[2]/mass);
 
             //Euler's method
-            position[0] = velocity[0]*t + position[0];
-            position[1] = velocity[1]*t + position[1];
-            position[2] = velocity[2]*t + position[2];
-
-            const float mass = p->getMass();
-
-            velocity[0] = (force[0]/mass)*t + velocity[0];
-            velocity[1] = (force[1]/mass)*t + velocity[1];
-            velocity[2] = (force[2]/mass)*t + velocity[2];
-
+            position[0] = position[0] + velocity[0]*simulationTime;
+            position[1] = position[1] + velocity[1]*simulationTime;
+            position[2] = position[2] + velocity[2]*simulationTime;
 
             //Check sphere collition
             CheckSphereCollition(position);
@@ -158,7 +157,7 @@ void ParticleSystem::writeFrame(unsigned index)
     for(auto it = particles.begin(); it != particles.end(); ++it)
     {
 
-        const auto& position  = (*it)->getPosition();
+        const auto& position  = (*it).getPosition();
 
         frame <<position[0]<<" "<<position[1]<<" "<<position[2]<<std::endl;
     }
